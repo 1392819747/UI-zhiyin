@@ -1,0 +1,134 @@
+name: Flutter Build iOS and Android
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build iOS (No Code Sign)
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.0'
+        channel: 'stable'
+        
+    - name: Install dependencies
+      run: flutter pub get
+      
+    - name: Build iOS (No Code Sign)
+      run: |
+        flutter build ios --release --no-codesign
+        
+    - name: Upload iOS build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-build
+        path: build/ios/iphoneos
+        
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+        
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.0'
+        channel: 'stable'
+        
+    - name: Install dependencies
+      run: flutter pub get
+      
+    - name: Build Android APK
+      run: flutter build apk --release
+      
+    - name: Upload Android APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+        
+  build-example-ios:
+    name: Build Example iOS (No Code Sign)
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.0'
+        channel: 'stable'
+        
+    - name: Install dependencies
+      run: |
+        cd example
+        flutter pub get
+        
+    - name: Build iOS Example (No Code Sign)
+      run: |
+        cd example
+        flutter build ios --release --no-codesign
+        
+    - name: Upload iOS example build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-example-build
+        path: example/build/ios/iphoneos
+        
+  build-example-android:
+    name: Build Example Android APK
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+        
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.0'
+        channel: 'stable'
+        
+    - name: Install dependencies
+      run: |
+        cd example
+        flutter pub get
+        
+    - name: Build Android Example APK
+      run: |
+        cd example
+        flutter build apk --release
+        
+    - name: Upload Android example APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-example-apk
+        path: example/build/app/outputs/flutter-apk/app-release.apk
