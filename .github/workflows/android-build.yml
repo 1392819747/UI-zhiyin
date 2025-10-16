@@ -19,6 +19,10 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '17'
+    
+    - name: Setup Gradle JVM Args
+      run: |
+        echo "GRADLE_OPTS=-Xmx4g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" >> $GITHUB_ENV
         
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
@@ -34,10 +38,10 @@ jobs:
         cd example
         flutter pub get
       
-    - name: Build Android APK
+    - name: Build Android
       run: |
         cd example
-        flutter build apk --release
+        flutter build apk --release --dart-define=FLUTTER_KOTLIN_VERSION=2.1.0
       
     - name: Upload Android APK
       uses: actions/upload-artifact@v4

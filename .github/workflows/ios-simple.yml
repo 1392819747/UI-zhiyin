@@ -41,6 +41,7 @@ jobs:
     - name: Install iOS pods
       run: |
         cd example/ios
+        pod update TIMPush
         pod install --repo-update
         
     - name: Build iOS (No Code Sign)
