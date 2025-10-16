@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
-import 'package:tuicall_kit_example/src/main_widget.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tuicall_kit_example/generate/app_localizations.dart';
 import 'package:tuicall_kit_example/src/settings/settings_config.dart';
+import 'package:tuicall_kit_example/src/chat_conversation_list_widget.dart';
+import 'package:tuicall_kit_example/src/chat_config.dart';
 
 void main() {
-  // 设置默认用户ID，直接跳过登录
-  SettingsConfig.userId = "test_user_001";
-  SettingsConfig.nickname = "测试用户";
-  SettingsConfig.avatar = "";
+  // 初始化聊天配置
+  ChatConfig.initializeChat();
   
   runApp(const MyApp());
 }
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
                 child: child,
               ),
             ),
-        home: const MainWidget());
+        home: const ChatConversationListWidget());
   }
 
   void hideKeyboard(BuildContext context) {
