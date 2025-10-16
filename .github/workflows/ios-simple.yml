@@ -1,15 +1,13 @@
-name: iOS Simple Build
+name: iOS Build
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  build-ios-simple:
-    name: Build iOS Simple (No Code Sign)
+  build-ios:
+    name: Build iOS
     runs-on: macos-latest
     
     steps:
@@ -26,24 +24,10 @@ jobs:
       run: flutter pub get
       
     - name: Build iOS (No Code Sign)
-      run: |
-        flutter build ios --release --no-codesign
+      run: flutter build ios --release --no-codesign
         
-    - name: Create IPA (No Code Sign)
-      run: |
-        cd build/ios/iphoneos
-        mkdir -p Payload
-        cp -r Runner.app Payload/
-        zip -r app-release.ipa Payload/
-        
-    - name: Upload iOS IPA
+    - name: Upload iOS build
       uses: actions/upload-artifact@v4
       with:
-        name: ios-ipa-simple
-        path: build/ios/iphoneos/app-release.ipa
-        
-    - name: Upload iOS build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ios-build-simple
+        name: ios-build
         path: build/ios/iphoneos

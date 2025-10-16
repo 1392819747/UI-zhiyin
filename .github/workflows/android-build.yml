@@ -1,14 +1,12 @@
-name: Android Build APK
+name: Android Build
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  build-android-apk:
+  build-android:
     name: Build Android APK
     runs-on: ubuntu-latest
     
@@ -37,14 +35,5 @@ jobs:
     - name: Upload Android APK
       uses: actions/upload-artifact@v4
       with:
-        name: android-apk-release
+        name: android-apk
         path: build/app/outputs/flutter-apk/app-release.apk
-        
-    - name: Build Android App Bundle (AAB)
-      run: flutter build appbundle --release
-      
-    - name: Upload Android AAB
-      uses: actions/upload-artifact@v4
-      with:
-        name: android-aab-release
-        path: build/app/outputs/bundle/release/app-release.aab
