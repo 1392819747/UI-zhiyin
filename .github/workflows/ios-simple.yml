@@ -23,11 +23,18 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
       
+    - name: Install example dependencies
+      run: |
+        cd example
+        flutter pub get
+      
     - name: Build iOS (No Code Sign)
-      run: flutter build ios --release --no-codesign
+      run: |
+        cd example
+        flutter build ios --release --no-codesign
         
     - name: Upload iOS build
       uses: actions/upload-artifact@v4
       with:
         name: ios-build
-        path: build/ios/iphoneos
+        path: example/build/ios/iphoneos
