@@ -6,9 +6,11 @@ import 'package:tuicall_kit_example/src/settings/settings_config.dart';
 import 'package:tuicall_kit_example/src/chat_conversation_list_widget.dart';
 import 'package:tuicall_kit_example/src/chat_config.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
   // 初始化聊天配置
-  ChatConfig.initializeChat();
+  await ChatConfig.initializeChat();
   
   runApp(const MyApp());
 }

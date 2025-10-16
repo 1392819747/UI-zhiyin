@@ -1,30 +1,29 @@
-import 'package:tencent_cloud_chat_sdk/tencent_cloud_chat_sdk.dart';
+import 'package:flutter/foundation.dart';
+
+// 聊天配置类
 
 /// 聊天界面配置类
 class ChatConfig {
-  /// 腾讯云 SDKAppID，需要在腾讯云控制台获取
+  /// SDK App ID - 需要替换为您的实际 SDKAppID
   static const int sdkAppId = 0; // TODO: 替换为您的 SDKAppID
   
-  /// 用户 ID
-  static String userId = 'test_user_001';
+  /// 默认用户ID
+  static const String defaultUserId = 'user123';
   
-  /// 用户昵称
-  static String nickname = '测试用户';
-  
-  /// 用户头像
-  static String avatar = '';
-  
-  /// 生成 UserSig 的密钥，需要在腾讯云控制台获取
-  static const String secretKey = ''; // TODO: 替换为您的密钥
-  
-  /// 默认会话 ID（用于测试）
-  static const String defaultConversationId = 'test_conversation';
+  /// 默认会话ID
+  static const String defaultConversationId = 'conversation123';
   
   /// 默认会话类型（1: 单聊，2: 群聊）
   static const int defaultConversationType = 1;
   
-  /// 默认会话名称
+  /// 默认会话显示名称
   static const String defaultConversationName = '测试聊天';
+  
+  /// 初始化聊天配置
+  static Future<void> initializeChat() async {
+    // 这里可以添加初始化逻辑
+    debugPrint('聊天配置初始化完成');
+  }
 }
 
 /// 聊天工具类
