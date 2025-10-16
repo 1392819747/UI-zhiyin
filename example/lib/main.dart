@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
-import 'package:tuicall_kit_example/src/login_widget.dart';
+import 'package:tuicall_kit_example/src/main_widget.dart';
 import 'package:tuicall_kit_example/generate/app_localizations.dart';
+import 'package:tuicall_kit_example/src/settings/settings_config.dart';
 
 void main() {
+  // 设置默认用户ID，直接跳过登录
+  SettingsConfig.userId = "test_user_001";
+  SettingsConfig.nickname = "测试用户";
+  SettingsConfig.avatar = "";
+  
   runApp(const MyApp());
 }
 
@@ -35,7 +41,7 @@ class _MyAppState extends State<MyApp> {
                 child: child,
               ),
             ),
-        home: const LoginWidget());
+        home: const MainWidget());
   }
 
   void hideKeyboard(BuildContext context) {
